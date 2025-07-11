@@ -20,10 +20,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
   averageProficiency,
 }) => {
   return (
-    <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group">
+    <div className="glass p-6 rounded-xl border border-border hover:border-primary/50 transition-all duration-300 group">
       <div className="flex items-center gap-3 mb-4">
         <span className="text-2xl">{icon}</span>
-        <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
+        <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
           {title}
         </h3>
       </div>
@@ -32,10 +32,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
         {skills.map((skill) => (
           <div key={skill.name} className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-slate-300 text-sm font-medium">{skill.name}</span>
-              <span className="text-cyan-400 text-sm font-bold">{skill.level}%</span>
+              <span className="text-foreground text-sm font-medium">{skill.name}</span>
+              <span className="text-primary text-sm font-bold">{skill.level}%</span>
             </div>
-            <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
               <div
                 className="progress-indicator h-2 rounded-full"
                 style={{
@@ -48,10 +48,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
         ))}
       </div>
 
-      <div className="pt-4 border-t border-slate-700/50">
+      <div className="pt-4 border-t border-border">
         <div className="flex justify-between items-center">
-          <span className="text-slate-400 text-sm">Avg Proficiency</span>
-          <span className="text-cyan-400 font-bold text-lg">{averageProficiency}%</span>
+          <span className="text-muted-foreground text-sm">Avg Proficiency</span>
+          <span className="text-primary font-bold text-lg">{averageProficiency}%</span>
         </div>
       </div>
     </div>

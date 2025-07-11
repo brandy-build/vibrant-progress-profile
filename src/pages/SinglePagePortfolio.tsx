@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -191,14 +192,14 @@ const SinglePagePortfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen bg-charcoal-gradient">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/30 backdrop-blur-xl border-b border-slate-800/50">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-700/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button 
               onClick={() => scrollToSection('home')}
-              className="text-xl font-bold text-white hover:text-primary transition-colors"
+              className="text-xl font-bold text-foreground hover:text-primary transition-colors"
             >
               Portfolio
             </button>
@@ -209,7 +210,7 @@ const SinglePagePortfolio = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 text-slate-300 hover:text-primary hover:bg-slate-800/50"
+                  className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 text-muted-foreground hover:text-primary hover:bg-accent/50"
                 >
                   {item.label}
                 </button>
@@ -220,7 +221,7 @@ const SinglePagePortfolio = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-slate-300 hover:text-white"
+                className="text-muted-foreground hover:text-foreground"
               >
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -230,12 +231,12 @@ const SinglePagePortfolio = () => {
           {/* Mobile Navigation */}
           {isMenuOpen && (
             <div className="md:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/90 backdrop-blur-xl rounded-lg mt-2 border border-slate-800/50">
+              <div className="px-2 pt-2 pb-3 space-y-1 glass-dark rounded-lg mt-2 border border-border">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors text-slate-300 hover:text-primary hover:bg-slate-800/50"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors text-muted-foreground hover:text-primary hover:bg-accent/50"
                   >
                     {item.label}
                   </button>
@@ -249,18 +250,18 @@ const SinglePagePortfolio = () => {
       {/* Home Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute inset-0 bg-charcoal-radial" />
+        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000" />
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           {/* Profile Circle */}
-          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-primary/50 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm animate-fade-in">
+          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-primary/50 flex items-center justify-center glass animate-fade-in">
             <span className="text-primary text-2xl font-mono">{'{{NAME}}'}</span>
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-white mb-4 animate-fade-in">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-foreground mb-4 animate-fade-in">
             {'{{NAME}}'}
           </h1>
 
@@ -279,7 +280,7 @@ const SinglePagePortfolio = () => {
             <Button 
               onClick={() => scrollToSection('projects')}
               size="lg" 
-              className="bg-primary/90 hover:bg-primary text-slate-900 font-semibold px-8 backdrop-blur-sm"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
             >
               View Projects
               <ArrowRight className="ml-2" size={20} />
@@ -289,7 +290,7 @@ const SinglePagePortfolio = () => {
               onClick={() => scrollToSection('contact')}
               variant="outline" 
               size="lg"
-              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary px-8 backdrop-blur-sm"
+              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary px-8"
             >
               Get In Touch
             </Button>
@@ -298,10 +299,10 @@ const SinglePagePortfolio = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20">
+      <section id="about" className="py-20 bg-gradient-to-b from-transparent to-muted/20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               About Me
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto"></div>
@@ -311,7 +312,7 @@ const SinglePagePortfolio = () => {
             {/* Bio Section */}
             <div className="space-y-6">
               <h3 className="text-2xl font-semibold text-primary mb-4">Bio</h3>
-              <div className="text-slate-400 font-mono text-sm bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+              <div className="text-muted-foreground font-mono text-sm glass p-6 rounded-lg border border-border">
                 {'{{BIO}}'}
               </div>
             </div>
@@ -319,7 +320,7 @@ const SinglePagePortfolio = () => {
             {/* Skills & Expertise Preview */}
             <div className="space-y-6">
               <h3 className="text-2xl font-semibold text-primary mb-4">Skills & Expertise</h3>
-              <div className="text-slate-400 font-mono text-sm bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+              <div className="text-muted-foreground font-mono text-sm glass p-6 rounded-lg border border-border">
                 {'{{SKILLS_LIST}}'}
               </div>
             </div>
@@ -327,21 +328,21 @@ const SinglePagePortfolio = () => {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-16">
-            <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+            <div className="glass p-6 rounded-lg border border-border">
               <div className="text-3xl font-bold text-primary mb-2">30+</div>
-              <div className="text-slate-400 text-sm">Technologies</div>
+              <div className="text-muted-foreground text-sm">Technologies</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+            <div className="glass p-6 rounded-lg border border-border">
               <div className="text-3xl font-bold text-primary mb-2">6</div>
-              <div className="text-slate-400 text-sm">Categories</div>
+              <div className="text-muted-foreground text-sm">Categories</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+            <div className="glass p-6 rounded-lg border border-border">
               <div className="text-3xl font-bold text-primary mb-2">3+</div>
-              <div className="text-slate-400 text-sm">Years Experience</div>
+              <div className="text-muted-foreground text-sm">Years Experience</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
+            <div className="glass p-6 rounded-lg border border-border">
               <div className="text-3xl font-bold text-primary mb-2">81%</div>
-              <div className="text-slate-400 text-sm">Avg Proficiency</div>
+              <div className="text-muted-foreground text-sm">Avg Proficiency</div>
             </div>
           </div>
         </div>
@@ -351,11 +352,11 @@ const SinglePagePortfolio = () => {
       <section id="skills" className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               Skills & Expertise
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               A comprehensive overview of my technical skills and proficiency levels
             </p>
           </div>
@@ -375,35 +376,35 @@ const SinglePagePortfolio = () => {
 
           {/* Statistics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
+            <div className="glass p-8 rounded-lg border border-border">
               <div className="text-4xl font-bold text-primary mb-2">{stats.technologies}+</div>
-              <div className="text-slate-400">Technologies</div>
+              <div className="text-muted-foreground">Technologies</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
+            <div className="glass p-8 rounded-lg border border-border">
               <div className="text-4xl font-bold text-primary mb-2">{stats.categories}</div>
-              <div className="text-slate-400">Categories</div>
+              <div className="text-muted-foreground">Categories</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
+            <div className="glass p-8 rounded-lg border border-border">
               <div className="text-4xl font-bold text-primary mb-2">{stats.experience}+</div>
-              <div className="text-slate-400">Years Experience</div>
+              <div className="text-muted-foreground">Years Experience</div>
             </div>
-            <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
+            <div className="glass p-8 rounded-lg border border-border">
               <div className="text-4xl font-bold text-primary mb-2">{stats.proficiency}%</div>
-              <div className="text-slate-400">Avg Proficiency</div>
+              <div className="text-muted-foreground">Avg Proficiency</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20">
+      <section id="projects" className="py-20 bg-gradient-to-b from-muted/10 to-transparent">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               Projects
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               A showcase of my cybersecurity and software development work
             </p>
           </div>
@@ -426,43 +427,43 @@ const SinglePagePortfolio = () => {
       <section id="contact" className="py-20">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
               Get In Touch
             </h2>
             <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Let's discuss cybersecurity, development projects, or potential collaborations
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50">
+            <Card className="glass border-border">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Mail className="text-primary" size={24} />
-                  <h3 className="text-2xl font-semibold text-white">Email</h3>
+                  <h3 className="text-2xl font-semibold text-foreground">Email</h3>
                 </div>
                 
-                <div className="text-slate-400 font-mono text-sm mb-8 bg-slate-700/30 backdrop-blur-sm p-4 rounded-lg">
+                <div className="text-muted-foreground font-mono text-sm mb-8 glass-dark p-4 rounded-lg">
                   {'{{EMAIL}}'}
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-slate-300">Full Name</Label>
+                    <Label htmlFor="name" className="text-foreground">Full Name</Label>
                     <Input
                       id="name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Enter your full name"
-                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-primary"
+                      className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-slate-300">Email Address</Label>
+                    <Label htmlFor="email" className="text-foreground">Email Address</Label>
                     <Input
                       id="email"
                       name="email"
@@ -470,12 +471,12 @@ const SinglePagePortfolio = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Enter your email address"
-                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-primary"
+                      className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="message" className="text-slate-300">Message</Label>
+                    <Label htmlFor="message" className="text-foreground">Message</Label>
                     <textarea
                       id="message"
                       name="message"
@@ -483,13 +484,13 @@ const SinglePagePortfolio = () => {
                       onChange={handleChange}
                       placeholder="Tell me about your project or just say hello!"
                       rows={5}
-                      className="w-full px-3 py-2 bg-slate-700/30 backdrop-blur-sm border border-slate-600 rounded-md text-white placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+                      className="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                     />
                   </div>
 
                   <Button 
                     type="submit"
-                    className="w-full bg-primary/90 hover:bg-primary text-slate-900 font-semibold backdrop-blur-sm"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
                   >
                     <Send size={18} className="mr-2" />
                     Send Message
@@ -500,47 +501,47 @@ const SinglePagePortfolio = () => {
 
             {/* Connect Online */}
             <div>
-              <h3 className="text-2xl font-semibold text-white mb-6">Connect Online</h3>
+              <h3 className="text-2xl font-semibold text-foreground mb-6">Connect Online</h3>
               
               <div className="space-y-4">
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Github className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
+                  <Github className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
-                    <div className="text-white font-medium">GitHub</div>
-                    <div className="text-slate-400 text-sm">View my repositories</div>
+                    <div className="text-foreground font-medium">GitHub</div>
+                    <div className="text-muted-foreground text-sm">View my repositories</div>
                   </div>
                 </a>
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Linkedin className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
+                  <Linkedin className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
-                    <div className="text-white font-medium">LinkedIn</div>
-                    <div className="text-slate-400 text-sm">Professional network</div>
+                    <div className="text-foreground font-medium">LinkedIn</div>
+                    <div className="text-muted-foreground text-sm">Professional network</div>
                   </div>
                 </a>
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Twitter className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
+                  <Twitter className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
-                    <div className="text-white font-medium">Twitter</div>
-                    <div className="text-slate-400 text-sm">Follow for updates</div>
+                    <div className="text-foreground font-medium">Twitter</div>
+                    <div className="text-muted-foreground text-sm">Follow for updates</div>
                   </div>
                 </a>
               </div>
 
-              <div className="mt-8 p-6 bg-slate-800/20 backdrop-blur-sm rounded-lg border border-slate-700/50">
+              <div className="mt-8 p-6 glass rounded-lg border border-border">
                 <Button 
                   onClick={() => scrollToSection('contact')}
-                  className="w-full bg-primary/90 hover:bg-primary text-slate-900 font-semibold backdrop-blur-sm"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
                 >
                   Start a Conversation
                 </Button>
@@ -551,9 +552,9 @@ const SinglePagePortfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-slate-800/50">
+      <footer className="py-8 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-slate-500 text-sm">
+          <p className="text-muted-foreground text-sm">
             © 2024 Portfolio. Crafted with security in mind.
           </p>
         </div>
