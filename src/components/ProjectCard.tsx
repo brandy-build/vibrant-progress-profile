@@ -1,6 +1,6 @@
 
+import React from 'react';
 import { ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 interface ProjectCardProps {
   title: string;
@@ -9,28 +9,41 @@ interface ProjectCardProps {
   link: string;
 }
 
-const ProjectCard = ({ title, description, image, link }: ProjectCardProps) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  description,
+  image,
+  link,
+}) => {
   return (
-    <div className="bg-slate-800/50 rounded-lg border border-slate-700 hover:border-cyan-500/50 transition-all duration-300 overflow-hidden group">
-      <div className="aspect-video bg-slate-700 flex items-center justify-center relative overflow-hidden">
-        <div className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity">
-          {image}
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
-      </div>
-      
+    <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group overflow-hidden">
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
-        <p className="text-slate-400 mb-4 text-sm">{description}</p>
-        
-        <Button 
-          variant="outline" 
-          size="sm"
-          className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400"
-        >
-          <ExternalLink size={16} className="mr-2" />
-          View Project
-        </Button>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-4xl">{image}</span>
+          <a
+            href={link}
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-slate-400 hover:text-cyan-400"
+          >
+            <ExternalLink size={20} />
+          </a>
+        </div>
+
+        <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+          {title}
+        </h3>
+
+        <p className="text-slate-400 text-sm leading-relaxed mb-4">
+          {description}
+        </p>
+
+        <div className="flex items-center justify-between">
+          <div className="flex space-x-2">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+          </div>
+          <span className="text-xs text-slate-500 font-mono">2024</span>
+        </div>
       </div>
     </div>
   );
