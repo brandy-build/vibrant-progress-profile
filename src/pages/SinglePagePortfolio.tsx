@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowRight, Mail, Send, Github, Linkedin, Twitter, Menu, X, Database, Server, Key, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, Mail, Send, Github, Linkedin, Twitter, Menu, X } from 'lucide-react';
 import SkillCard from '@/components/SkillCard';
 import ProjectCard from '@/components/ProjectCard';
 
@@ -22,8 +21,6 @@ const SinglePagePortfolio = () => {
     experience: 0,
     proficiency: 0
   });
-  const [activeDbTab, setActiveDbTab] = useState('supabase');
-  const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'success' | 'error'>('idle');
 
   const fullText = 'Cybersecurity Specialist';
 
@@ -71,20 +68,12 @@ const SinglePagePortfolio = () => {
     });
   };
 
-  const handleConnect = () => {
-    setConnectionStatus('connecting');
-    setTimeout(() => {
-      setConnectionStatus('success');
-    }, 2000);
-  };
-
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'skills', label: 'Skills' },
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
-    { id: 'database', label: 'Database' },
   ];
 
   const skillCategories = [
@@ -201,95 +190,6 @@ const SinglePagePortfolio = () => {
     }
   ];
 
-  const supabaseCode = `// Install Supabase client
-npm install @supabase/supabase-js
-
-// Create supabase client
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = 'YOUR_SUPABASE_URL'
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'
-
-export const supabase = createClient(supabaseUrl, supabaseKey)
-
-// Example: Insert data
-const { data, error } = await supabase
-  .from('portfolio_contacts')
-  .insert([
-    { name: 'John Doe', email: 'john@example.com', message: 'Hello!' }
-  ])
-
-// Example: Fetch data
-const { data, error } = await supabase
-  .from('portfolio_projects')
-  .select('*')
-  .order('created_at', { ascending: false })`;
-
-  const mongoCode = `// Install MongoDB driver
-npm install mongodb
-
-// Connect to MongoDB
-import { MongoClient } from 'mongodb'
-
-const uri = 'YOUR_MONGODB_CONNECTION_STRING'
-const client = new MongoClient(uri)
-
-async function connectDB() {
-  try {
-    await client.connect()
-    const db = client.db('portfolio')
-    return db
-  } catch (error) {
-    console.error('Connection failed:', error)
-  }
-}
-
-// Example: Insert document
-const db = await connectDB()
-const result = await db.collection('contacts').insertOne({
-  name: 'John Doe',
-  email: 'john@example.com',
-  message: 'Hello!',
-  timestamp: new Date()
-})
-
-// Example: Find documents
-const projects = await db.collection('projects').find({}).toArray()`;
-
-  const postgresCode = `// Install pg (PostgreSQL driver)
-npm install pg @types/pg
-
-// Create connection
-import { Pool } from 'pg'
-
-const pool = new Pool({
-  host: 'YOUR_HOST',
-  port: 5432,
-  database: 'YOUR_DATABASE',
-  user: 'YOUR_USERNAME',
-  password: 'YOUR_PASSWORD',
-})
-
-// Example: Create table
-await pool.query(\`
-  CREATE TABLE IF NOT EXISTS contacts (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-  )
-\`)
-
-// Example: Insert data
-const result = await pool.query(
-  'INSERT INTO contacts (name, email, message) VALUES ($1, $2, $3) RETURNING *',
-  ['John Doe', 'john@example.com', 'Hello!']
-)
-
-// Example: Select data
-const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DESC')`;
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Navigation */}
@@ -298,7 +198,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
           <div className="flex justify-between items-center h-16">
             <button 
               onClick={() => scrollToSection('home')}
-              className="text-xl font-bold text-white hover:text-cyan-400 transition-colors"
+              className="text-xl font-bold text-white hover:text-primary transition-colors"
             >
               Portfolio
             </button>
@@ -309,7 +209,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
+                  className="px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 text-slate-300 hover:text-primary hover:bg-slate-800/50"
                 >
                   {item.label}
                 </button>
@@ -335,7 +235,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50"
+                    className="block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors text-slate-300 hover:text-primary hover:bg-slate-800/50"
                   >
                     {item.label}
                   </button>
@@ -350,13 +250,13 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-        <div className="absolute top-20 left-20 w-72 h-72 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000" />
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           {/* Profile Circle */}
-          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-cyan-400/50 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm animate-fade-in">
-            <span className="text-cyan-400 text-2xl font-mono">{'{{NAME}}'}</span>
+          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-primary/50 flex items-center justify-center bg-slate-800/30 backdrop-blur-sm animate-fade-in">
+            <span className="text-primary text-2xl font-mono">{'{{NAME}}'}</span>
           </div>
 
           {/* Main Heading */}
@@ -366,7 +266,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
 
           {/* Animated Tagline */}
           <div className="h-12 mb-8">
-            <p className="text-xl sm:text-2xl md:text-3xl text-cyan-400 font-mono">
+            <p className="text-xl sm:text-2xl md:text-3xl text-primary font-mono">
               {'{{'}
               <span className="animate-pulse">{displayedText}</span>
               <span className="animate-pulse">|</span>
@@ -379,7 +279,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <Button 
               onClick={() => scrollToSection('projects')}
               size="lg" 
-              className="bg-cyan-500/90 hover:bg-cyan-600 text-slate-900 font-semibold px-8 backdrop-blur-sm"
+              className="bg-primary/90 hover:bg-primary text-slate-900 font-semibold px-8 backdrop-blur-sm"
             >
               View Projects
               <ArrowRight className="ml-2" size={20} />
@@ -389,7 +289,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
               onClick={() => scrollToSection('contact')}
               variant="outline" 
               size="lg"
-              className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 px-8 backdrop-blur-sm"
+              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary px-8 backdrop-blur-sm"
             >
               Get In Touch
             </Button>
@@ -404,13 +304,13 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               About Me
             </h2>
-            <div className="w-16 h-1 bg-cyan-400 mx-auto"></div>
+            <div className="w-16 h-1 bg-primary mx-auto"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-start">
             {/* Bio Section */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-cyan-400 mb-4">Bio</h3>
+              <h3 className="text-2xl font-semibold text-primary mb-4">Bio</h3>
               <div className="text-slate-400 font-mono text-sm bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
                 {'{{BIO}}'}
               </div>
@@ -418,7 +318,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
 
             {/* Skills & Expertise Preview */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-cyan-400 mb-4">Skills & Expertise</h3>
+              <h3 className="text-2xl font-semibold text-primary mb-4">Skills & Expertise</h3>
               <div className="text-slate-400 font-mono text-sm bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
                 {'{{SKILLS_LIST}}'}
               </div>
@@ -428,19 +328,19 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-16">
             <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">30+</div>
+              <div className="text-3xl font-bold text-primary mb-2">30+</div>
               <div className="text-slate-400 text-sm">Technologies</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">6</div>
+              <div className="text-3xl font-bold text-primary mb-2">6</div>
               <div className="text-slate-400 text-sm">Categories</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">3+</div>
+              <div className="text-3xl font-bold text-primary mb-2">3+</div>
               <div className="text-slate-400 text-sm">Years Experience</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-6 rounded-lg border border-slate-700/50">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">81%</div>
+              <div className="text-3xl font-bold text-primary mb-2">81%</div>
               <div className="text-slate-400 text-sm">Avg Proficiency</div>
             </div>
           </div>
@@ -454,7 +354,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               Skills & Expertise
             </h2>
-            <div className="w-16 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               A comprehensive overview of my technical skills and proficiency levels
             </p>
@@ -476,19 +376,19 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
           {/* Statistics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">{stats.technologies}+</div>
+              <div className="text-4xl font-bold text-primary mb-2">{stats.technologies}+</div>
               <div className="text-slate-400">Technologies</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">{stats.categories}</div>
+              <div className="text-4xl font-bold text-primary mb-2">{stats.categories}</div>
               <div className="text-slate-400">Categories</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">{stats.experience}+</div>
+              <div className="text-4xl font-bold text-primary mb-2">{stats.experience}+</div>
               <div className="text-slate-400">Years Experience</div>
             </div>
             <div className="bg-slate-800/30 backdrop-blur-sm p-8 rounded-lg border border-slate-700/50">
-              <div className="text-4xl font-bold text-cyan-400 mb-2">{stats.proficiency}%</div>
+              <div className="text-4xl font-bold text-primary mb-2">{stats.proficiency}%</div>
               <div className="text-slate-400">Avg Proficiency</div>
             </div>
           </div>
@@ -502,7 +402,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               Projects
             </h2>
-            <div className="w-16 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               A showcase of my cybersecurity and software development work
             </p>
@@ -529,7 +429,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
               Get In Touch
             </h2>
-            <div className="w-16 h-1 bg-cyan-400 mx-auto mb-6"></div>
+            <div className="w-16 h-1 bg-primary mx-auto mb-6"></div>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               Let's discuss cybersecurity, development projects, or potential collaborations
             </p>
@@ -540,7 +440,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
             <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
-                  <Mail className="text-cyan-400" size={24} />
+                  <Mail className="text-primary" size={24} />
                   <h3 className="text-2xl font-semibold text-white">Email</h3>
                 </div>
                 
@@ -557,7 +457,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Enter your full name"
-                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-cyan-400"
+                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-primary"
                     />
                   </div>
 
@@ -570,7 +470,7 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Enter your email address"
-                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-cyan-400"
+                      className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400 focus:border-primary"
                     />
                   </div>
 
@@ -583,13 +483,13 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
                       onChange={handleChange}
                       placeholder="Tell me about your project or just say hello!"
                       rows={5}
-                      className="w-full px-3 py-2 bg-slate-700/30 backdrop-blur-sm border border-slate-600 rounded-md text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 resize-none"
+                      className="w-full px-3 py-2 bg-slate-700/30 backdrop-blur-sm border border-slate-600 rounded-md text-white placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
                     />
                   </div>
 
                   <Button 
                     type="submit"
-                    className="w-full bg-cyan-500/90 hover:bg-cyan-600 text-slate-900 font-semibold backdrop-blur-sm"
+                    className="w-full bg-primary/90 hover:bg-primary text-slate-900 font-semibold backdrop-blur-sm"
                   >
                     <Send size={18} className="mr-2" />
                     Send Message
@@ -605,9 +505,9 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
               <div className="space-y-4">
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Github className="text-slate-400 group-hover:text-cyan-400 transition-colors" size={24} />
+                  <Github className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
                   <div>
                     <div className="text-white font-medium">GitHub</div>
                     <div className="text-slate-400 text-sm">View my repositories</div>
@@ -616,9 +516,9 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Linkedin className="text-slate-400 group-hover:text-cyan-400 transition-colors" size={24} />
+                  <Linkedin className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
                   <div>
                     <div className="text-white font-medium">LinkedIn</div>
                     <div className="text-slate-400 text-sm">Professional network</div>
@@ -627,9 +527,9 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 hover:border-primary/50 transition-all duration-300 group"
                 >
-                  <Twitter className="text-slate-400 group-hover:text-cyan-400 transition-colors" size={24} />
+                  <Twitter className="text-slate-400 group-hover:text-primary transition-colors" size={24} />
                   <div>
                     <div className="text-white font-medium">Twitter</div>
                     <div className="text-slate-400 text-sm">Follow for updates</div>
@@ -640,221 +540,12 @@ const { rows } = await pool.query('SELECT * FROM projects ORDER BY created_at DE
               <div className="mt-8 p-6 bg-slate-800/20 backdrop-blur-sm rounded-lg border border-slate-700/50">
                 <Button 
                   onClick={() => scrollToSection('contact')}
-                  className="w-full bg-cyan-500/90 hover:bg-cyan-600 text-slate-900 font-semibold backdrop-blur-sm"
+                  className="w-full bg-primary/90 hover:bg-primary text-slate-900 font-semibold backdrop-blur-sm"
                 >
                   Start a Conversation
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Database Section */}
-      <section id="database" className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Database Setup
-            </h2>
-            <div className="w-16 h-1 bg-cyan-400 mx-auto mb-6"></div>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Choose and configure your preferred database solution
-            </p>
-          </div>
-
-          {/* Database Options */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-slate-800/30 backdrop-blur-sm p-1 rounded-lg border border-slate-700/50 inline-flex">
-              <button
-                onClick={() => setActiveDbTab('supabase')}
-                className={`px-4 sm:px-6 py-3 rounded-md font-medium transition-all text-sm sm:text-base ${
-                  activeDbTab === 'supabase'
-                    ? 'bg-cyan-500 text-slate-900'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <Database className="inline mr-2" size={18} />
-                Supabase
-              </button>
-              <button
-                onClick={() => setActiveDbTab('mongodb')}
-                className={`px-4 sm:px-6 py-3 rounded-md font-medium transition-all text-sm sm:text-base ${
-                  activeDbTab === 'mongodb'
-                    ? 'bg-cyan-500 text-slate-900'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <Server className="inline mr-2" size={18} />
-                MongoDB
-              </button>
-              <button
-                onClick={() => setActiveDbTab('postgres')}
-                className={`px-4 sm:px-6 py-3 rounded-md font-medium transition-all text-sm sm:text-base ${
-                  activeDbTab === 'postgres'
-                    ? 'bg-cyan-500 text-slate-900'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <Key className="inline mr-2" size={18} />
-                PostgreSQL
-              </button>
-            </div>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Configuration Panel */}
-            <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-2 mb-6">
-                  {activeDbTab === 'supabase' && <Database className="text-cyan-400" size={24} />}
-                  {activeDbTab === 'mongodb' && <Server className="text-cyan-400" size={24} />}
-                  {activeDbTab === 'postgres' && <Key className="text-cyan-400" size={24} />}
-                  
-                  <h3 className="text-xl font-semibold text-white">
-                    {activeDbTab === 'supabase' && 'Supabase Configuration'}
-                    {activeDbTab === 'mongodb' && 'MongoDB Configuration'}
-                    {activeDbTab === 'postgres' && 'PostgreSQL Configuration'}
-                  </h3>
-                </div>
-
-                <div className="space-y-6">
-                  {activeDbTab === 'supabase' && (
-                    <>
-                      <div className="space-y-2">
-                        <Label htmlFor="supabase-url" className="text-slate-300">Supabase URL</Label>
-                        <Input
-                          id="supabase-url"
-                          placeholder="https://your-project.supabase.co"
-                          className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="supabase-key" className="text-slate-300">Anon Key</Label>
-                        <Input
-                          id="supabase-key"
-                          type="password"
-                          placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                          className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {activeDbTab === 'mongodb' && (
-                    <>
-                      <div className="space-y-2">
-                        <Label htmlFor="mongo-url" className="text-slate-300">Connection String</Label>
-                        <Input
-                          id="mongo-url"
-                          placeholder="mongodb+srv://username:password@cluster.mongodb.net/database"
-                          className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="mongo-db" className="text-slate-300">Database Name</Label>
-                        <Input
-                          id="mongo-db"
-                          placeholder="portfolio"
-                          className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {activeDbTab === 'postgres' && (
-                    <>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="pg-host" className="text-slate-300">Host</Label>
-                          <Input
-                            id="pg-host"
-                            placeholder="localhost"
-                            className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="pg-port" className="text-slate-300">Port</Label>
-                          <Input
-                            id="pg-port"
-                            placeholder="5432"
-                            className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="pg-database" className="text-slate-300">Database</Label>
-                        <Input
-                          id="pg-database"
-                          placeholder="portfolio"
-                          className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                        />
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="pg-user" className="text-slate-300">Username</Label>
-                          <Input
-                            id="pg-user"
-                            placeholder="username"
-                            className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="pg-password" className="text-slate-300">Password</Label>
-                          <Input
-                            id="pg-password"
-                            type="password"
-                            placeholder="password"
-                            className="bg-slate-700/30 backdrop-blur-sm border-slate-600 text-white placeholder-slate-400"
-                          />
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  <Button 
-                    onClick={handleConnect}
-                    disabled={connectionStatus === 'connecting'}
-                    className="w-full bg-cyan-500/90 hover:bg-cyan-600 text-slate-900 font-semibold backdrop-blur-sm"
-                  >
-                    {connectionStatus === 'connecting' && (
-                      <div className="animate-spin rounded-full h-4 w-4 border-2 border-slate-900 border-t-transparent mr-2" />
-                    )}
-                    {connectionStatus === 'success' && <CheckCircle className="mr-2" size={18} />}
-                    {connectionStatus === 'error' && <AlertCircle className="mr-2" size={18} />}
-                    
-                    {connectionStatus === 'idle' && 'Test Connection'}
-                    {connectionStatus === 'connecting' && 'Connecting...'}
-                    {connectionStatus === 'success' && 'Connected!'}
-                    {connectionStatus === 'error' && 'Connection Failed'}
-                  </Button>
-
-                  {connectionStatus === 'success' && (
-                    <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg backdrop-blur-sm">
-                      <p className="text-green-400 text-sm font-medium">
-                        ✅ Database connection successful! You can now use this configuration.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Code Examples */}
-            <Card className="bg-slate-800/30 backdrop-blur-sm border-slate-700/50">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-white mb-4">Implementation Code</h3>
-                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-600/50 overflow-hidden">
-                  <pre className="text-xs sm:text-sm text-slate-300 whitespace-pre-wrap overflow-x-auto">
-                    <code>
-                      {activeDbTab === 'supabase' && supabaseCode}
-                      {activeDbTab === 'mongodb' && mongoCode}
-                      {activeDbTab === 'postgres' && postgresCode}
-                    </code>
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
