@@ -37,8 +37,12 @@ const Home = () => {
 
         {/* Main Heading */}
         <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 animate-fade-in">
-          {'{{NAME}}'}
+          {'Prajwal L Chawda '}
         </h1>
+        {/* Main Heading */}
+        <h2 className="text-6xl md:text-8xl font-bold text-white mb-4 animate-fade-in">
+          {'Kali'}
+        </h2>
 
         {/* Animated Tagline */}
         <div className="h-12 mb-8">
