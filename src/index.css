@@ -96,10 +96,40 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    cursor: none;
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Custom glowing cursor */
+  .cursor-glow {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.8) 0%, rgba(0, 255, 255, 0.4) 50%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+  }
+
+  .cursor-glow::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
   }
 }
 
@@ -122,15 +152,30 @@ All colors MUST be HSL.
 
   /* Glassmorphism utilities */
   .glass {
-    background: rgba(16, 24, 39, 0.8);
+    background: rgba(16, 24, 39, 0.85);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(107, 114, 128, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .glass:hover {
+    background: rgba(16, 24, 39, 0.95);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15);
+    transform: translateY(-5px);
   }
 
   .glass-dark {
     background: rgba(17, 24, 39, 0.9);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(75, 85, 99, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .glass-dark:hover {
+    background: rgba(17, 24, 39, 0.95);
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
   }
 
   /* Gradient text */
@@ -159,12 +204,36 @@ All colors MUST be HSL.
       hsl(210, 35%, 8%) 100%
     );
   }
+
+  /* Card hover effects */
+  .card-hover {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 255, 255, 0.1),
+      0 0 0 1px rgba(0, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Project card square aspect ratio */
+  .project-card-square {
+    aspect-ratio: 1;
+  }
 }
 
 /* Custom progress bar styling */
 .progress-indicator {
   background: linear-gradient(90deg, #00ffff 0%, #0891b2 100%);
-  transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.progress-bar {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 /* Scrollbar styling for webkit browsers */

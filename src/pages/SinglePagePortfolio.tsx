@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,8 +21,19 @@ const SinglePagePortfolio = () => {
     experience: 0,
     proficiency: 0
   });
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const fullText = 'Cybersecurity Specialist';
+
+  // Cursor tracking effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setCursorPosition({ x: e.clientX, y: e.clientY });
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     let index = 0;
@@ -192,9 +202,18 @@ const SinglePagePortfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-charcoal-gradient">
+    <div className="min-h-screen bg-charcoal-gradient relative">
+      {/* Custom Glowing Cursor */}
+      <div 
+        className="cursor-glow"
+        style={{
+          left: `${cursorPosition.x - 10}px`,
+          top: `${cursorPosition.y - 10}px`,
+        }}
+      />
+
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-gray-700/30">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-border/30 backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <button 
@@ -256,7 +275,7 @@ const SinglePagePortfolio = () => {
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
           {/* Profile Circle */}
-          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-primary/50 flex items-center justify-center glass animate-fade-in">
+          <div className="w-32 h-32 mx-auto mb-8 rounded-full border-4 border-primary/50 flex items-center justify-center glass-dark animate-fade-in hover:border-primary/80 transition-colors">
             <span className="text-primary text-2xl font-mono">{'{{NAME}}'}</span>
           </div>
 
@@ -280,7 +299,7 @@ const SinglePagePortfolio = () => {
             <Button 
               onClick={() => scrollToSection('projects')}
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 hover:shadow-lg hover:shadow-primary/25 transition-all"
             >
               View Projects
               <ArrowRight className="ml-2" size={20} />
@@ -290,7 +309,7 @@ const SinglePagePortfolio = () => {
               onClick={() => scrollToSection('contact')}
               variant="outline" 
               size="lg"
-              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary px-8"
+              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary px-8 hover:shadow-lg hover:shadow-primary/20 transition-all"
             >
               Get In Touch
             </Button>
@@ -312,7 +331,7 @@ const SinglePagePortfolio = () => {
             {/* Bio Section */}
             <div className="space-y-6">
               <h3 className="text-2xl font-semibold text-primary mb-4">Bio</h3>
-              <div className="text-muted-foreground font-mono text-sm glass p-6 rounded-lg border border-border">
+              <div className="text-muted-foreground font-mono text-sm glass-dark card-hover p-6 rounded-lg border border-border/50">
                 {'{{BIO}}'}
               </div>
             </div>
@@ -320,7 +339,7 @@ const SinglePagePortfolio = () => {
             {/* Skills & Expertise Preview */}
             <div className="space-y-6">
               <h3 className="text-2xl font-semibold text-primary mb-4">Skills & Expertise</h3>
-              <div className="text-muted-foreground font-mono text-sm glass p-6 rounded-lg border border-border">
+              <div className="text-muted-foreground font-mono text-sm glass-dark card-hover p-6 rounded-lg border border-border/50">
                 {'{{SKILLS_LIST}}'}
               </div>
             </div>
@@ -328,19 +347,19 @@ const SinglePagePortfolio = () => {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mt-16">
-            <div className="glass p-6 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-6 rounded-lg border border-border/50">
               <div className="text-3xl font-bold text-primary mb-2">30+</div>
               <div className="text-muted-foreground text-sm">Technologies</div>
             </div>
-            <div className="glass p-6 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-6 rounded-lg border border-border/50">
               <div className="text-3xl font-bold text-primary mb-2">6</div>
               <div className="text-muted-foreground text-sm">Categories</div>
             </div>
-            <div className="glass p-6 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-6 rounded-lg border border-border/50">
               <div className="text-3xl font-bold text-primary mb-2">3+</div>
               <div className="text-muted-foreground text-sm">Years Experience</div>
             </div>
-            <div className="glass p-6 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-6 rounded-lg border border-border/50">
               <div className="text-3xl font-bold text-primary mb-2">81%</div>
               <div className="text-muted-foreground text-sm">Avg Proficiency</div>
             </div>
@@ -376,19 +395,19 @@ const SinglePagePortfolio = () => {
 
           {/* Statistics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="glass p-8 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-8 rounded-lg border border-border/50">
               <div className="text-4xl font-bold text-primary mb-2">{stats.technologies}+</div>
               <div className="text-muted-foreground">Technologies</div>
             </div>
-            <div className="glass p-8 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-8 rounded-lg border border-border/50">
               <div className="text-4xl font-bold text-primary mb-2">{stats.categories}</div>
               <div className="text-muted-foreground">Categories</div>
             </div>
-            <div className="glass p-8 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-8 rounded-lg border border-border/50">
               <div className="text-4xl font-bold text-primary mb-2">{stats.experience}+</div>
               <div className="text-muted-foreground">Years Experience</div>
             </div>
-            <div className="glass p-8 rounded-lg border border-border">
+            <div className="glass-dark card-hover p-8 rounded-lg border border-border/50">
               <div className="text-4xl font-bold text-primary mb-2">{stats.proficiency}%</div>
               <div className="text-muted-foreground">Avg Proficiency</div>
             </div>
@@ -438,14 +457,14 @@ const SinglePagePortfolio = () => {
 
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <Card className="glass border-border">
+            <Card className="glass-dark card-hover border-border/50">
               <CardContent className="p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Mail className="text-primary" size={24} />
                   <h3 className="text-2xl font-semibold text-foreground">Email</h3>
                 </div>
                 
-                <div className="text-muted-foreground font-mono text-sm mb-8 glass-dark p-4 rounded-lg">
+                <div className="text-muted-foreground font-mono text-sm mb-8 glass p-4 rounded-lg border border-border/50">
                   {'{{EMAIL}}'}
                 </div>
 
@@ -458,7 +477,7 @@ const SinglePagePortfolio = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Enter your full name"
-                      className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary"
+                      className="bg-input border-border/50 text-foreground placeholder-muted-foreground focus:border-primary hover:border-primary/50 transition-colors"
                     />
                   </div>
 
@@ -471,7 +490,7 @@ const SinglePagePortfolio = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Enter your email address"
-                      className="bg-input border-border text-foreground placeholder-muted-foreground focus:border-primary"
+                      className="bg-input border-border/50 text-foreground placeholder-muted-foreground focus:border-primary hover:border-primary/50 transition-colors"
                     />
                   </div>
 
@@ -484,13 +503,13 @@ const SinglePagePortfolio = () => {
                       onChange={handleChange}
                       placeholder="Tell me about your project or just say hello!"
                       rows={5}
-                      className="w-full px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+                      className="w-full px-3 py-2 bg-input border border-border/50 rounded-md text-foreground placeholder-muted-foreground focus:border-primary hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none transition-colors"
                     />
                   </div>
 
                   <Button 
                     type="submit"
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all"
                   >
                     <Send size={18} className="mr-2" />
                     Send Message
@@ -506,7 +525,7 @@ const SinglePagePortfolio = () => {
               <div className="space-y-4">
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass-dark rounded-lg border border-border/50 hover:border-primary/50 transition-all duration-300 group card-hover"
                 >
                   <Github className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
@@ -517,7 +536,7 @@ const SinglePagePortfolio = () => {
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass-dark rounded-lg border border-border/50 hover:border-primary/50 transition-all duration-300 group card-hover"
                 >
                   <Linkedin className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
@@ -528,7 +547,7 @@ const SinglePagePortfolio = () => {
 
                 <a
                   href="#"
-                  className="flex items-center gap-4 p-4 glass rounded-lg border border-border hover:border-primary/50 transition-all duration-300 group"
+                  className="flex items-center gap-4 p-4 glass-dark rounded-lg border border-border/50 hover:border-primary/50 transition-all duration-300 group card-hover"
                 >
                   <Twitter className="text-muted-foreground group-hover:text-primary transition-colors" size={24} />
                   <div>
@@ -538,10 +557,10 @@ const SinglePagePortfolio = () => {
                 </a>
               </div>
 
-              <div className="mt-8 p-6 glass rounded-lg border border-border">
+              <div className="mt-8 p-6 glass-dark rounded-lg border border-border/50 card-hover">
                 <Button 
                   onClick={() => scrollToSection('contact')}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold hover:shadow-lg hover:shadow-primary/25 transition-all"
                 >
                   Start a Conversation
                 </Button>
@@ -552,7 +571,7 @@ const SinglePagePortfolio = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border">
+      <footer className="py-8 border-t border-border/50">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-muted-foreground text-sm">
             © 2024 Portfolio. Crafted with security in mind.
